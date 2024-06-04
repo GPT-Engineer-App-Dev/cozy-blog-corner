@@ -10,6 +10,12 @@ const Index = () => {
     setPosts(storedPosts);
   }, []);
 
+  const handleDelete = (index) => {
+    const updatedPosts = posts.filter((_, i) => i !== index);
+    localStorage.setItem("posts", JSON.stringify(updatedPosts));
+    setPosts(updatedPosts);
+  };
+
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
@@ -24,6 +30,7 @@ const Index = () => {
           <Box key={index} p={5} shadow="md" borderWidth="1px" width="100%" bg={colorMode === "light" ? "white" : "gray.700"}>
             <Heading fontSize="xl">{post.title}</Heading>
             <Text mt={4}>{post.content}</Text>
+            <Button colorScheme="red" mt={4} onClick={() => handleDelete(index)}>Delete</Button>
           </Box>
         ))}
       </VStack>
