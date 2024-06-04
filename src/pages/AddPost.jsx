@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Container, VStack, Heading, Input, Textarea, Button } from "@chakra-ui/react";
+import { Container, VStack, Heading, Input, Textarea, Button, useColorMode } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
 
   const handleSubmit = () => {
     const posts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -23,11 +24,13 @@ const AddPost = () => {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          bg={colorMode === "light" ? "white" : "gray.700"}
         />
         <Textarea
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          bg={colorMode === "light" ? "white" : "gray.700"}
         />
         <Button colorScheme="teal" onClick={handleSubmit}>Submit</Button>
       </VStack>
